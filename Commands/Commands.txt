@@ -1,0 +1,50 @@
+# To create alogin name of Altchool, and a home directory of /Home/Altschool
+ sudo useradd -s /bin/bash -m Altschool
+# Then the home directory contains sub-directories
+ mkdir code tests personal misc
+# Then in the home directory created above run the following commands;
+# a. Change directory to the tests directory using the absolute pathname
+ cd /home/altchool/tests
+# b. Change directory to the tests directory using the relative pathname
+ cd /tests
+# c. Use the echo command to create a file named fileA with text content 'Hello A' in the misc directory
+ echo "Hello A" > fileA (but before using this command make sure your in the right directory indicated above i.e misc directory)
+# d. Create an empty file called fileB in the misc directory then populate the file with a dummy content afterwards
+ touch fileB
+ nano fileB -- (using this coomand will make use of the nano text editor, it will take in to tthe file and you can edit the 
+file however you please, but in this case we fill it with dummy content)
+# e. Copy content from fileA into fileC
+ (first your create fileC by using TOUCH command followed by your file name)
+ cp fileA fileC -- ( after creating the fileC, you use this command to cp the file from fileA to fileC)
+                                           
+                                    OR
+  cat fileA >> fileC -- ( Using this command will append the content of fileA to fileC. if fileC doesn't exit, it will be created)
+# f. Move content of fileB to fileD
+ touch fileD -- ( Create your fileD if it does'nt exit)
+ mv fileB fileD
+# g. Create a tar archieve called misc.tar for the contents of misc directory
+ tar -cvf misc.tar fileA fileB fileC fileD
+# h. Compress the tar archieve to create a misc.tar.gz file
+ tar -czvf misc.tar.gz fileA fileB fileC fileD
+# i. Create a user and force the user to change his/her password upon login
+ sudo useradd -m -s /bin/bash username
+ sudo passwd username
+ sudo chage -d 0 username
+# j. lock a users password
+ sudo passwd -l username -- ( to lock a users password)
+ sudo passwd -u username -- ( to unlock a users password)
+# k. Create a user with no login shell
+ sudo useradd -m -s /bin/false username
+# l. Disable password based authentication for ssh
+ sudo nano /etc/ssh/sshd_config -- ( First you use this command to enter the sshd_config folder by using the nano text editor
+specified in the command)
+ PasswordAuthentication no -- ( Then when your in the folder you find and modify the line PasswordAthentication from yes to no
+as indicated in the command)
+ sudo service ssh restart -- ( After modifing the PasswordAuthentication line you save and exit the text editor, and you run this 
+command to apply the changes on the ssh service) 
+# m. Disable root login for ssh
+ sudo nano /etc/ssh/sshd_config
+ PermitRootLogin no
+ sudo service ssh restart
+ ( Same process as line l)
+
